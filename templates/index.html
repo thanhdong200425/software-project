@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../static/css/homepage.module.css"/>
+    <script src="https://kit.fontawesome.com/dfc41e2a92.js" crossorigin="anonymous"></script>
+    <title>Hotel Management</title>
+</head>
+<body>
+<aside class="sidebar">
+    <div class="logo">
+        <h2>Novotel</h2>
+    </div>
+    <nav class="navigation">
+        <ul>
+            <li>
+                <a href="#"><i class="fa-solid fa-house"></i>Dashboard</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-pen-to-square"></i>Front desk</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-clipboard"></i>Guest</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-bookmark"></i>Rooms</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-tag"></i>Deal</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa-solid fa-circle-dollar-to-slot"></i>Rate</a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+<main>
+    <header>
+        <div class="header-top">
+            <div class="header-top-input">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 1rem; font-weight: bold"></i>
+                <input type="text" placeholder="Search for rooms and more..."/>
+            </div>
+            <div class="header-top-sub">
+                <div class="notification-badge">
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+
+                <div class="user-profile">
+                    <img alt="user" src="../static/avatar-2.png"/>
+                </div>
+            </div>
+        </div>
+        <div></div>
+    </header>
+    <div class="container">
+        <!-- Overview Section -->
+        <div class="overview-section">
+            <h1>Overview</h1>
+            <div class="stats">
+                <div>
+                    <p>Today's Check-in</p>
+                    <span>23</span>
+                </div>
+                <div>
+                    <p>Today's Check-out</p>
+                    <span>13</span>
+                </div>
+                <div>
+                    <p>Total In Hotel</p>
+                    <span>60</span>
+                </div>
+                <div>
+                    <p>Total Available Room</p>
+                    <span>10</span>
+                </div>
+                <div>
+                    <p>Total Occupied Room</p>
+                    <span>90</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rooms Section -->
+        <section class="rooms-section">
+            <div class="room-box">
+                <h2>Single sharing</h2>
+                <p>2/30</p>
+                <p class="price"><span>$568</span>/day</p>
+            </div>
+            <div class="room-box">
+                <h2>Double sharing</h2>
+                <p>2/35</p>
+                <p class="price"><span>$1,068</span>/day</p>
+            </div>
+            <div class="room-box">
+                <h2>Triple sharing</h2>
+                <p>2/25</p>
+                <p class="price"><span>$1,568</span>/day</p>
+            </div>
+            <div class="room-box">
+                <h2>VIP Suit</h2>
+                <p>4/10</p>
+                <p class="price"><span>$2,568</span>/day</p>
+            </div>
+        </section>
+
+        <!-- Room Status and Floor Status -->
+        <section class="room-status-section">
+            <div class="status-box">
+                <h4>Room Status</h4>
+                <div class="status-content">
+                    <div class="status-column">
+                        <p>Occupied rooms: 104</p>
+                        <p>Clean: 90</p>
+                        <p>Dirty: 4</p>
+                        <p>Inspected: 60</p>
+                    </div>
+                    <div class="status-column">
+                        <p>Total rooms: 20</p>
+                        <p>Clean: 30</p>
+                        <p>Dirty: 19</p>
+                        <p>Inspected: 30</p>
+                    </div>
+                </div>
+            </div>
+            <div class="floor-status">
+                <div class="progress-circle">
+                    <span>80%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Occupancy Statistics and Customer Feedback -->
+        <section class="occupancy-section">
+            <div class="occupancy-box">
+                <h2>Occupancy Statistics</h2>
+                <!-- You can use a library like Chart.js to create the chart here -->
+                <img src="chart-placeholder.png" alt="Occupancy Chart" style="width: 100%"/>
+            </div>
+            <div class="feedback-section">
+                <h2>Customer Feedback</h2>
+                <div class="feedback-box">
+                    <p>Mark: Food could be better.</p>
+                    <span>Room: A201</span>
+                </div>
+                <div class="feedback-box">
+                    <p>Christian: Facilities are not enough for the amount paid.</p>
+                    <span>Room: A101</span>
+                </div>
+                <div class="feedback-box">
+                    <p>Alexander: Room cleaning could be better.</p>
+                    <span>Room: A301</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+</body>
+</html>
