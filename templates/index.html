@@ -1,58 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}"/>
-    <script src="https://kit.fontawesome.com/dfc41e2a92.js" crossorigin="anonymous"></script>
-    <title>Hotel Management</title>
-</head>
-<body>
-<aside class="sidebar">
-    <div class="logo">
-        <h2>Novotel</h2>
-    </div>
-    <nav class="navigation">
-        <ul>
-            <li>
-                <a href="#"><i class="fa-solid fa-house"></i>Dashboard</a>
-            </li>
-            <li>
-                <a href="#"><i class="fa-solid fa-pen-to-square"></i>Front desk</a>
-            </li>
-            <li>
-                <a href="#"><i class="fa-solid fa-clipboard"></i>Guest</a>
-            </li>
-            <li>
-                <a href="#"><i class="fa-solid fa-bookmark"></i>Rooms</a>
-            </li>
-            <li>
-                <a href="#"><i class="fa-solid fa-tag"></i>Deal</a>
-            </li>
-            <li>
-                <a href="#"><i class="fa-solid fa-circle-dollar-to-slot"></i>Rate</a>
-            </li>
-        </ul>
-    </nav>
-</aside>
-<main>
-    <header>
-        <div class="header-top">
-            <div class="header-top-input">
-                <i class="fa-solid fa-magnifying-glass" style="font-size: 1rem; font-weight: bold"></i>
-                <input type="text" placeholder="Search for rooms and more..."/>
-            </div>
-            <div class="header-top-sub">
-                <div class="notification-badge">
-                    <i class="fa-regular fa-bell"></i>
-                </div>
+{% extends "layout.html" %} {% block title %} Home {% endblock %}
 
-                <div class="user-profile">
-                    <img alt="user" src="../static/avatar-2.png"/>
-                </div>
-            </div>
-        </div>
-    </header>
+{% block stylesheets %}
+    <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/homepage.css')}}"
+    />
+{% endblock %}
+
+{% block
+content %}
     <div class="container">
         <!-- Overview Section -->
         <div class="overview-section">
@@ -111,16 +67,16 @@
                 <h4>Room Status</h4>
                 <div class="status-content">
                     <div class="status-column">
-                        <p>Occupied rooms: 104</p>
-                        <p>Clean: 90</p>
-                        <p>Dirty: 4</p>
-                        <p>Inspected: 60</p>
+                        <p>Occupied rooms: <span>104</span></p>
+                        <p>Clean: <span>90</span></p>
+                        <p>Dirty: <span>4</span></p>
+                        <p>Inspected: <span>60</span></p>
                     </div>
                     <div class="status-column">
-                        <p>Total rooms: 20</p>
-                        <p>Clean: 30</p>
-                        <p>Dirty: 19</p>
-                        <p>Inspected: 30</p>
+                        <p>Total rooms: <span>20</span></p>
+                        <p>Clean: <span>30</span></p>
+                        <p>Dirty: <span>19</span></p>
+                        <p>Inspected: <span>30</span></p>
                     </div>
                 </div>
             </div>
@@ -136,7 +92,11 @@
             <div class="occupancy-box">
                 <h2>Occupancy Statistics</h2>
                 <!-- You can use a library like Chart.js to create the chart here -->
-                <img src="chart-placeholder.png" alt="Occupancy Chart" style="width: 100%"/>
+                <img
+                        src="chart-placeholder.png"
+                        alt="Occupancy Chart"
+                        style="width: 100%"
+                />
             </div>
             <div class="feedback-section">
                 <h2>Customer Feedback</h2>
@@ -155,6 +115,4 @@
             </div>
         </section>
     </div>
-</main>
-</body>
-</html>
+{% endblock %}
