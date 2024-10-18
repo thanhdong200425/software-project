@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1800f6d-764c-4552-ae1e-40ff11908f8a" name="Changes" comment="Add Gunicorn to requirements and update Procfile">
-      <change beforePath="$PROJECT_DIR$/.idea/project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/homepage.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/homepage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +123,9 @@
       <workItem from="1728693561189" duration="2072000" />
       <workItem from="1728794948886" duration="106000" />
       <workItem from="1729174500326" duration="4038000" />
-      <workItem from="1729180774767" duration="1661000" />
+      <workItem from="1729180774767" duration="4351000" />
+      <workItem from="1729235704125" duration="134000" />
+      <workItem from="1729236939345" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="fix some code">
       <option name="closed" value="true" />

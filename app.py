@@ -11,41 +11,67 @@ app = Flask(__name__)
 
 app.secret_key = os.urandom(24)
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
 
 
-@app.route('/booking', methods=['GET', 'POST'])
+@app.route("/booking", methods=["GET", "POST"])
 def booking():
     if request.method == "GET":
         return render_template("booking.html")
 
     customer_name = request.form.get("customer-name")
-    customer = is_existing_data('customer', 'name', customer_name)
+    customer = is_existing_data("customer", "name", customer_name)
     if not customer:
-        flash('Username does not exist. Please try to enter another customer name', 'error')
+        flash(
+            "Username does not exist. Please try to enter another customer name",
+            "error",
+        )
         return redirect("/booking")
 
     room_name = request.form.get("room")
-    room = is_existing_data('room', 'name', room_name)
+    room = is_existing_data("room", "name", room_name)
     if not room:
-        flash('Room name does not exist. Please try to enter another room name', 'error')
-        return redirect('/booking')
+        flash(
+            "Room name does not exist. Please try to enter another room name", "error"
+        )
+        return redirect("/booking")
 
-    checkout_date = request.form.get('check-out-date')
-    checkin_date = request.form.get('check-in-date')
-    total_people = request.form.get('total-people')
-    add_new_record('booking', ['customer_id', 'room_id', 'status', 'book_day', 'expected_checkin', 'expected_checkout', 'total_people'], (customer[0], room[0], 'ongoing', datetime.now(), checkin_date, checkout_date, total_people))
-    flash("Added booking", 'success')
-    return redirect('/booking')
+    checkout_date = request.form.get("check-out-date")
+    checkin_date = request.form.get("check-in-date")
+    total_people = request.form.get("total-people")
+    add_new_record(
+        "booking",
+        [
+            "customer_id",
+            "room_id",
+            "status",
+            "book_day",
+            "expected_checkin",
+            "expected_checkout",
+            "total_people",
+        ],
+        (
+            customer[0],
+            room[0],
+            "ongoing",
+            datetime.now(),
+            checkin_date,
+            checkout_date,
+            total_people,
+        ),
+    )
+    flash("Added booking", "success")
+    return redirect("/booking")
 
-@app.route('/list_room', methods=['GET'])
+
+@app.route("/list_room", methods=["GET"])
 def list_room():
-    if request.method == 'GET':
+    if request.method == "GET":
         rooms = get_all_rooms()
-        print(rooms)
-        return render_template('list_room.html', rooms=rooms)
+        return render_template("list_room.html", rooms=rooms)
 
 
 if __name__ == "__main__":

@@ -156,21 +156,19 @@
 }
 
 /* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-    .floor-status {
-        background-color: #333;
-    }
-    .progress-circle {
-        background: conic-gradient(#007bff 80%, #333 20%);
-    }
-    .progress-circle span {
-        color: #007bff;
-    }
-    .occupancy-box,
-    .feedback-section {
-        background-color: #1e1e1e;
-    }
-    .feedback-box span {
-        color: #bbb;
-    }
+.dark-mode .floor-status {
+    background-color: #333;
+}
+.dark-mode .progress-circle {
+    background: conic-gradient(#007bff 80%, #333 20%);
+}
+.dark-mode .progress-circle span {
+    color: #007bff;
+}
+.dark-mode .occupancy-box,
+.dark-mode .feedback-section {
+    background-color: #1e1e1e;
+}
+.dark-mode .feedback-box span {
+    color: #bbb;
 }
