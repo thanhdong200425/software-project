@@ -27,3 +27,13 @@ def add_new_record(table, column, params=()):
     cursor.execute(query, params)
     connection.commit()
     connection.close()
+
+def get_all_rooms():
+    connection = sqlite3.connect('hotel.db')
+    cursor = connection.cursor()
+    query = "SELECT * FROM room"
+    cursor.execute(query)
+    rooms = cursor.fetchall()
+    connection.commit()
+    connection.close()
+    return rooms

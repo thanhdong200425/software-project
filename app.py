@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, flash, redirect
 
 from database.database_function import add_new_record
+from database.database_function import get_all_rooms
 from helpers.validate import is_existing_data
 
 app = Flask(__name__)
@@ -38,6 +39,13 @@ def booking():
     add_new_record('booking', ['customer_id', 'room_id', 'status', 'book_day', 'expected_checkin', 'expected_checkout', 'total_people'], (customer[0], room[0], 'ongoing', datetime.now(), checkin_date, checkout_date, total_people))
     flash("Added booking", 'success')
     return redirect('/booking')
+
+@app.route('/list_room', methods=['GET'])
+def list_room():
+    if request.method == 'GET':
+        rooms = get_all_rooms()
+        print(rooms)
+        return render_template('list_room.html', rooms=rooms)
 
 
 if __name__ == "__main__":

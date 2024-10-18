@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list_room.css') }}">
+{% endblock %}
+
+{% block title %} Booking {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>List room in hotel</h1>
+        <div class="table-responsive">
+            <table class="table  custom-table no-footer">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Room Name</th>
+                        <th>Type</th>
+                        <th>Prices/Night</th>
+                        <th>Service</th>
+                        <th>Description</th>
+                        <th>Capacity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                        <tr>
+                            <td>
+                                <label>{{ room[0] }}</label>
+                            </td>
+                            <td>
+                                <label class="action_label">{{ room[1] }} </label>
+                            </td>
+                            <td>
+                                <label class="action_label2">{{ room[2] | upper }} </label>
+                            </td>
+                            <td><label>$ {{ room[3] }}</label></td>
+                            <td><label>{{ room[4] }}</label></td>
+                            <td><label>{{ room[5] }}</label></td>
+                            <td><label>{{ room[6] }}</label></td>
+                            <td class="tab-select">
+                                <select class="select">
+                                    <option value="available" {% if room[7] == 'available' %}selected{% endif %}>Available</option>
+                                    <option value="ongoing" {% if room[7] == 'ongoing' %}selected{% endif %}>Ongoing</option>
+                                    <option value="closed" {% if room[7] == 'closed' %}selected{% endif %}>Closed</option>
+                                </select>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
