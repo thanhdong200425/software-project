@@ -3,15 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/layout.css') }}"
-        />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" />
         {% block stylesheets %} {% endblock %}
-        <script
-            src="https://kit.fontawesome.com/dfc41e2a92.js"
-            crossorigin="anonymous"
-        ></script>
+        <script src="https://kit.fontawesome.com/dfc41e2a92.js" crossorigin="anonymous"></script>
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
@@ -20,33 +14,22 @@
             <nav class="navigation">
                 <ul>
                     <li>
-                        <a href="{{ url_for('index') }}"
-                            ><i class="fa-solid fa-house"></i>Dashboard</a
-                        >
+                        <a href="{{ url_for('index') }}"><i class="fa-solid fa-house"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('booking') }}"
-                            ><i class="fa-solid fa-pen-to-square"></i>Booking</a
-                        >
+                        <a href="{{ url_for('booking') }}"><i class="fa-solid fa-pen-to-square"></i>Booking</a>
                     </li>
                     <li>
-                        <a href="#"
-                            ><i class="fa-solid fa-clipboard"></i>Guest</a
-                        >
+                        <a href="#"><i class="fa-solid fa-clipboard"></i>Guest</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('list_room') }}"
-                            ><i class="fa-solid fa-bookmark"></i>Rooms</a
-                        >
+                        <a href="{{ url_for('list_room') }}"><i class="fa-solid fa-bookmark"></i>Rooms</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa-solid fa-tag"></i>Deal</a>
                     </li>
                     <li>
-                        <a href="#"
-                            ><i class="fa-solid fa-circle-dollar-to-slot"></i
-                            >Rate</a
-                        >
+                        <a href="#"><i class="fa-solid fa-circle-dollar-to-slot"></i>Rate</a>
                     </li>
                 </ul>
             </nav>
@@ -56,14 +39,8 @@
             <header>
                 <div class="header-top">
                     <div class="header-top-input">
-                        <i
-                            class="fa-solid fa-magnifying-glass"
-                            style="font-size: 1rem; font-weight: bold"
-                        ></i>
-                        <input
-                            type="text"
-                            placeholder="Search for rooms and more..."
-                        />
+                        <i class="fa-solid fa-magnifying-glass" style="font-size: 1rem; font-weight: bold"></i>
+                        <input type="text" placeholder="Search for rooms and more..." />
                     </div>
                     <div class="header-top-sub">
                         <div class="dark-mode-container">
@@ -80,14 +57,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="header-bottom">
+                    <h3 id="date-time"></h3>
+                    <button>Create booking</button>
+                </div>
             </header>
             {% block content %}{% endblock %}
         </main>
         <script>
+            <!-- Code logic for implementation dynamic time -->
             const toggleButton = document.getElementById("dark-mode-toggle");
             const currentTheme = localStorage.getItem("theme");
-            if (currentTheme == "dark")
-                document.body.classList.add("dark-mode");
+            if (currentTheme == "dark") document.body.classList.add("dark-mode");
 
             toggleButton.addEventListener("click", () => {
                 document.body.classList.toggle("dark-mode");
@@ -105,6 +86,31 @@
                 }
                 localStorage.setItem("theme", theme);
             });
+
+            function updateDateTime() {
+                const now = new Date();
+                const dateOptions = {
+                    timeZone: "Asia/Ho_Chi_Minh",
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                };
+                const timeOptions = {
+                    timeZone: "Asia/Ho_Chi_Minh",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false,
+                };
+                const timeFormatted = new Intl.DateTimeFormat("en-US", timeOptions).format(now);
+                const dateFormatted = new Intl.DateTimeFormat("en-US", dateOptions).format(now);
+                document.getElementById("date-time").innerText = `${timeFormatted} ${dateFormatted}`;
+            }
+
+            setInterval(updateDateTime, 1000);
+
+            updateDateTime();
         </script>
     </body>
 </html>

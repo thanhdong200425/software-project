@@ -5,170 +5,133 @@
     margin: 20px auto;
 }
 
-.overview-section,
-.rooms-section,
-.room-status-section,
-.occupancy-section,
-.feedback-section {
+.section {
     background-color: #fff;
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Overview section */
 .overview-section h1 {
     font-size: 20px;
     color: #333;
 }
+
 .overview-section .stats {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
 }
+
 .stats div {
     text-align: center;
 }
+
 .stats div span {
     margin-top: 5px;
     display: block;
     font-size: 1.5rem;
     color: #007bff;
 }
-.rooms-section {
-    display: flex;
-    justify-content: space-between;
-}
-.room-box {
-    border: 2px solid #d1d5db;
-    padding: 20px;
-    width: 22%;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.room-box h2 {
+
+/* Recently booking section */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    margin: 1.5rem 0;
     font-size: 16px;
-    font-weight: normal;
-    padding-bottom: 5px;
+    text-align: left;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.room-box .price {
-    padding-top: 10px;
-}
-
-.room-box .price span {
-    color: #007bff;
-    font-size: 24px;
-    margin-top: 10px;
+table thead tr {
+    background-color: #009879;
+    color: #ffffff;
     font-weight: bold;
 }
-.room-box p {
-    font-size: 14px;
-    color: #555;
-}
-.room-status-section {
-    display: flex;
-    justify-content: space-between;
-}
-.status-box {
-    background-color: #f5f7fa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    width: 60%;
+
+.table th,
+.table td {
+    padding: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
-.status-content {
-    display: flex;
-    justify-content: space-between;
+.table tbody tr {
+    border-bottom: 1px solid #dddddd;
 }
 
-.status-column {
-    flex-direction: column;
-    gap: 10px;
+/*Set the background color of even cells*/
+.table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
 }
 
-.status-column p {
-    gap: 20px;
-    margin: 0;
-    font-size: 14px;
-    color: #333;
+/*Set the background color of odd cells*/
+.table tbody tr:nth-of-type(odd) {
+    background-color: #ffffff;
 }
 
-.floor-status {
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f7fa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.table tbody tr:hover {
+    background-color: #f1f1f1;
 }
-.floor-status .progress-circle {
-    background: conic-gradient(#007bff 80%, #f5f7fa 20%);
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.progress-circle span {
-    font-size: 20px;
+
+.table tbody tr.active-row {
     font-weight: bold;
-    color: #007bff;
+    color: #009879;
 }
-.occupancy-section {
+
+.pagination {
+    margin-top: 1.5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
-.occupancy-box {
-    background-color: #f5f7fa;
-    width: 65%;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+.pagination a {
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: #009879;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
 }
-.feedback-section {
-    width: 30%;
-    padding: 20px;
-    background-color: #f5f7fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+.pagination a:hover {
+    background-color: #007a63;
 }
-.feedback-box {
-    margin-bottom: 15px;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 10px;
+
+.pagination span {
+    padding: 10px 15px;
+    margin: 0 5px;
+    color: #009879;
 }
-.feedback-box p {
-    margin: 0;
-    font-size: 14px;
-}
-.feedback-box span {
-    font-size: 12px;
-    color: #777;
-}
+
 
 /* Dark mode styles */
-.dark-mode .floor-status {
-    background-color: #333;
+
+.dark-mode .container {
+    background-color: grey;
 }
-.dark-mode .progress-circle {
-    background: conic-gradient(#007bff 80%, #333 20%);
+
+.dark-mode .section {
+    background-color: #121212;
+    color: #fff;
 }
-.dark-mode .progress-circle span {
-    color: #007bff;
+
+.dark-mode .overview-section {
+    border: 1px solid #fff;
+    box-shadow: 0 1px 3px #ffffff;
 }
-.dark-mode .occupancy-box,
-.dark-mode .feedback-section {
-    background-color: #1e1e1e;
+
+.dark-mode .overview-section h1 {
+    color: white;
+    font-weight: bold;
 }
-.dark-mode .feedback-box span {
-    color: #bbb;
+
+.dark-mode .table td {
+    color: #121212;
 }
