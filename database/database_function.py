@@ -1,9 +1,15 @@
 import sqlite3
 from sqlite3 import connect
 
+# Hàm kết nối đến cơ sở dữ liệu
+def get_db_connection():
+    conn = sqlite3.connect('hotel.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
 
 def fetch_data_from_table(table, column, condition=None, condition_params=(), fetch_one=False):
-    connection = sqlite3.connect('hotel.db')
+    connection = get_db_connection()
     cursor = connection.cursor()
     column_str = ", ".join(column)
     if condition:
@@ -16,10 +22,12 @@ def fetch_data_from_table(table, column, condition=None, condition_params=(), fe
     data = cursor.fetchone() if fetch_one else cursor.fetchall()
     connection.close()
     return data
+    
+
 
 
 def add_new_record(table, column, params=()):
-    connection = sqlite3.connect('hotel.db')
+    connection = get_db_connection()
     cursor = connection.cursor()
     column_str = ", ".join(column)
     placeholders = ", ".join(["?"] * len(params))
@@ -30,7 +38,7 @@ def add_new_record(table, column, params=()):
 
 
 def get_all_rooms():
-    connection = sqlite3.connect('hotel.db')
+    connection = get_db_connection()
     cursor = connection.cursor()
     query = "SELECT * FROM room"
     cursor.execute(query)
@@ -41,7 +49,7 @@ def get_all_rooms():
 
 
 def count_all_records_from_table(table, condition=None, condition_params=()):
-    connection = sqlite3.connect('hotel.db')
+    connection = get_db_connection()
     cursor = connection.cursor()
     if condition:
         query = f"SELECT COUNT(*) FROM {table} WHERE {condition}"
