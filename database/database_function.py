@@ -1,4 +1,5 @@
 import sqlite3
+import hashlib
 
 
 def fetch_data_from_table(table, column, condition=None, condition_params=(), fetch_one=False):
@@ -37,3 +38,24 @@ def get_all_rooms():
     connection.commit()
     connection.close()
     return rooms
+
+def read_users():
+    connection = sqlite3.connect('hotel.db')
+    cursor = connection.cursor()
+    query = "SELECT * FROM user"
+    cursor.execute(query)
+    users = cursor.fetchall()
+    connection.close()
+    return users
+
+def validate_user(email, password):
+    connection = sqlite3.connect('hotel.db')
+    cursor = connection.cursor()
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    query = "SELECT * FROM user WHERE email = ? AND password = ?"
+    cursor.execute(query, (email.strip(), hashed_password))
+    user = cursor.fetchone()  
+    connection.close()
+    return user
+authenticated_user = validate_user(email="example@example.com", password="your_password")
+all_users = read_users()

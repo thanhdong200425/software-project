@@ -1,0 +1,89 @@
+/* Khung container chính */
+.container {
+    width: 90%;
+    max-width: 500px;
+    padding: 2rem;
+    margin: 20px auto;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề của trang đăng nhập */
+.container h2 {
+    text-align: center;
+    color: #4a4a4a;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Thông báo lỗi */
+.alert-danger {
+    color: #f44336;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Thiết lập cho nhãn và ô nhập liệu */
+.form-group label {
+    color: #4a90e2;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.form-control {
+    padding: 12px;
+    font-size: 15px;
+    color: #333;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-control:focus {
+    border-color: #4a90e2;
+    box-shadow: none;
+}
+
+/* Nút đăng nhập */
+.btn-primary {
+    background-color: #4a90e2;
+    color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #357abd;
+}
+
+/* Liên kết đăng ký */
+.mt-3 a {
+    color: #f19d43;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.mt-3 a:hover {
+    color: #d68131;
+    text-decoration: underline;
+}
+
+/* Căn chỉnh nội dung văn bản */
+.text-center {
+    text-align: center;
+}
+
+/* Căn chỉnh hàng và cột */
+.row {
+    display: flex;
+    justify-content: center;
+}
