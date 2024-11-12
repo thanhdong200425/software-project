@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from database.database_function import add_new_record, get_all_rooms, validate_user, read_users
-=======
+
 from flask import Flask, render_template, request, flash, redirect,url_for
 
 from database.database_function import add_new_record
@@ -16,7 +16,7 @@ import hashlib
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-connection = sqlite3.connect("hotel.db", timeout=10)
+connection = sqlite3.connect("hotel.db")
 cursor = connection.cursor()
 connection.commit()
 connection.close()
@@ -61,8 +61,8 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('login'))
-=======
+    return render_template(url_for('login'))
+
 app.secret_key = os.urandom(24)
 
 @app.route('/register', methods=['GET', 'POST'])
