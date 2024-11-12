@@ -1,4 +1,5 @@
 -- Customer table
+
 CREATE TABLE customer
 (
     id          integer primary key autoincrement,
@@ -13,11 +14,17 @@ CREATE TABLE customer
 -- Room table
 CREATE TABLE room
 (
-    id        integer primary key autoincrement,
-    room_name text not null,
-    type      text not null check ( type in ('standard', 'vip') ),
-    status    text not null check ( status in ('available', 'ongoing', 'closed') )
-);
+    id                  integer primary key autoincrement,
+    room_name           text not null,
+    type                text not null check ( type in ('standard', 'vip') ),
+    status              text not null check ( status in ('available', 'ongoing', 'closed') ),
+   
+
+)
+Alter table room add column price_per_night float
+Alter table room add column  service text
+Alter table room add column description text
+Alter table room add column capacity integer,
 
 
 -- Booking table
