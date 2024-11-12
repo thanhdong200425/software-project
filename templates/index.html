@@ -1,12 +1,6 @@
-{% extends "layout.html" %} {% block title %} Home {% endblock %}
-
-{% block stylesheets %}
+{% extends "layout.html" %} {% block title %} Home {% endblock %} {% block stylesheets %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css')}}" />
-{% endblock %}
-
-
-{% block
-content %}
+{% endblock %} {% block content %}
 <div class="container">
     <!-- Overview Section -->
     <div class="overview-section">
@@ -35,80 +29,47 @@ content %}
         </div>
     </div>
 
-    <h1>ANH EM CHƯA CSS CHO PHẦN DƯỚI NÀY NHÁ</h1>
-
-    <!-- Rooms Section -->
-    <section class="rooms-section">
-        <div class="room-box">
-            <h2>Single sharing</h2>
-            <p>2/30</p>
-            <p class="price"><span>$568</span>/day</p>
+    <div class="section recent-booking-section">
+        <h2>Recently booking</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
+                    <th>Book Day</th>
+                    <th>Expected Check-in</th>
+                    <th>Expected Check-out</th>
+                    <th>Actual Check-in</th>
+                    <th>Checkout</th>
+                    <th>Total People</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.customer_name }}</td>
+                    <td>{{ booking.status }}</td>
+                    <td>{{ booking.book_day }}</td>
+                    <td>{{ booking.expected_checkin }}</td>
+                    <td>{{ booking.expected_checkout }}</td>
+                    <td>{{ booking.actual_checkin }}</td>
+                    <td>{{ booking.checkout }}</td>
+                    <td>{{ booking.total_people }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            {% if page > 1 %}
+            <a href="{{ url_for('index', page=page-1) }}">Previous</a>
+            {% endif %}
+            <span>Page {{ page }}</span>
+            {% if page < total_pages %}
+            <a href="{{ url_for('index', page=page+1) }}">Next</a>
+            {% endif %}
         </div>
-        <div class="room-box">
-            <h2>Double sharing</h2>
-            <p>2/35</p>
-            <p class="price"><span>$1,068</span>/day</p>
-        </div>
-        <div class="room-box">
-            <h2>Triple sharing</h2>
-            <p>2/25</p>
-            <p class="price"><span>$1,568</span>/day</p>
-        </div>
-        <div class="room-box">
-            <h2>VIP Suit</h2>
-            <p>4/10</p>
-            <p class="price"><span>$2,568</span>/day</p>
-        </div>
-    </section>
-
-    <!-- Room Status and Floor Status -->
-    <section class="room-status-section">
-        <div class="status-box">
-            <h4>Room Status</h4>
-            <div class="status-content">
-                <div class="status-column">
-                    <p>Occupied rooms: <span>104</span></p>
-                    <p>Clean: <span>90</span></p>
-                    <p>Dirty: <span>4</span></p>
-                    <p>Inspected: <span>60</span></p>
-                </div>
-                <div class="status-column">
-                    <p>Total rooms: <span>20</span></p>
-                    <p>Clean: <span>30</span></p>
-                    <p>Dirty: <span>19</span></p>
-                    <p>Inspected: <span>30</span></p>
-                </div>
-            </div>
-        </div>
-        <div class="floor-status">
-            <div class="progress-circle">
-                <span>80%</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Occupancy Statistics and Customer Feedback -->
-    <section class="occupancy-section">
-        <div class="occupancy-box">
-            <h2>Occupancy Statistics</h2>
-            <!-- You can use a library like Chart.js to create the chart here -->
-            <img src="chart-placeholder.png" alt="Occupancy Chart" style="width: 100%" />
-        </div>
-        <div class="feedback-section">
-            <h2>Customer Feedback</h2>
-            <div class="feedback-box">
-                <p>Mark: Food could be better.</p>
-                <span>Room: A201</span>
-            </div>
-            <div class="feedback-box">
-                <p>Christian: Facilities are not enough for the amount paid.</p>
-                <span>Room: A101</span>
-            </div>
-            <div class="feedback-box">
-                <p>Alexander: Room cleaning could be better.</p>
-                <span>Room: A301</span>
-            </div>
-        </div>
-    </section>
+    </div>
 </div>
 {% endblock %}
