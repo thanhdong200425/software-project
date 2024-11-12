@@ -80,3 +80,44 @@
     background-color: #4a90e2;
     border-radius: 10px;
 }
+
+
+.btn-container {
+    display: flex; /* Sử dụng Flexbox để sắp xếp các nút theo hàng ngang */
+    justify-content: space-between; /* Tạo khoảng cách giữa các nút */
+}
+
+.btn {
+    flex: 1; /* Tất cả các nút sẽ có chiều rộng bằng nhau */
+    padding: 5px 2px; /* Giảm padding để nút nhỏ lại */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-right: 5px; /* Khoảng cách giữa các nút */
+}
+
+.btn:last-child {
+    margin-right: 0; /* Không thêm margin cho nút cuối cùng */
+}
+
+.btn-edit {
+    background-color: #007bff; /* Màu nền cho nút sửa */
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Màu nền cho nút xóa */
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}

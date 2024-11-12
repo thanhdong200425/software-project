@@ -70,7 +70,7 @@ form select {
     margin-bottom: 15px;
 }
 
-button {
+.button {
     width: 48%;
     padding: 10px;
     font-size: 16px;
@@ -79,13 +79,13 @@ button {
     border-radius: 4px;
 }
 
-button.cancel {
+.button.cancel {
     background-color: #fff;
     color: #555;
     border: 1px solid #ccc;
 }
 
-button.next {
+.button.next {
     background-color: #5b57fb;
     color: white;
 }
