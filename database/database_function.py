@@ -1,17 +1,20 @@
 import sqlite3
-from sqlite3 import connect
+import hashlib
 
-# Hàm kết nối đến cơ sở dữ liệu
 def get_db_connection():
-    conn = sqlite3.connect('hotel.db')
+    conn = sqlite3.connect('hotel1.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-
 def fetch_data_from_table(table, column, condition=None, condition_params=(), fetch_one=False):
-    connection = get_db_connection()
+    connection = sqlite3.connect('hotel1.db')
     cursor = connection.cursor()
-    column_str = ", ".join(column)
+
+    if column != "*":
+        column_str = ", ".join(column)
+    else:
+        column_str = column
+
     if condition:
         query = f"SELECT {column_str} FROM {table} WHERE {condition}"
         cursor.execute(query, condition_params)
@@ -22,12 +25,10 @@ def fetch_data_from_table(table, column, condition=None, condition_params=(), fe
     data = cursor.fetchone() if fetch_one else cursor.fetchall()
     connection.close()
     return data
-    
-
 
 
 def add_new_record(table, column, params=()):
-    connection = get_db_connection()
+    connection = sqlite3.connect('hotel1.db')
     cursor = connection.cursor()
     column_str = ", ".join(column)
     placeholders = ", ".join(["?"] * len(params))
@@ -38,7 +39,7 @@ def add_new_record(table, column, params=()):
 
 
 def get_all_rooms():
-    connection = get_db_connection()
+    connection = sqlite3.connect('hotel1.db')
     cursor = connection.cursor()
     query = "SELECT * FROM room"
     cursor.execute(query)
@@ -47,6 +48,27 @@ def get_all_rooms():
     connection.close()
     return rooms
 
+def read_users():
+    connection = sqlite3.connect('hotel1.db')
+    cursor = connection.cursor()
+    query = "SELECT * FROM user"
+    cursor.execute(query)
+    users = cursor.fetchall()
+    connection.close()
+    return users
+
+def validate_user(email, password):
+    connection = sqlite3.connect('hotel1.db')
+    cursor = connection.cursor()
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    query = "SELECT * FROM user WHERE email = ? AND password = ?"
+    cursor.execute(query, (email.strip(), hashed_password))
+    user = cursor.fetchone()  
+    connection.close()
+    return user
+  
+# authenticated_user = validate_user(email="example@example.com", password="your_password")
+# all_users = read_users()
 
 def count_all_records_from_table(table, condition=None, condition_params=()):
     connection = get_db_connection()

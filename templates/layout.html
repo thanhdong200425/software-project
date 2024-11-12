@@ -51,21 +51,15 @@
                         <div class="notification-badge">
                             <i class="fa-regular fa-bell"></i>
                         </div>
-
                         <div class="user-profile">
                             <img alt="user" src="../static/avatar-2.png" />
                         </div>
                     </div>
                 </div>
-                <div class="header-bottom">
-                    <h3 id="date-time"></h3>
-                    <button>Create booking</button>
-                </div>
             </header>
             {% block content %}{% endblock %}
         </main>
         <script>
-            <!-- Code logic for implementation dynamic time -->
             const toggleButton = document.getElementById("dark-mode-toggle");
             const currentTheme = localStorage.getItem("theme");
             if (currentTheme == "dark") document.body.classList.add("dark-mode");
@@ -86,31 +80,6 @@
                 }
                 localStorage.setItem("theme", theme);
             });
-
-            function updateDateTime() {
-                const now = new Date();
-                const dateOptions = {
-                    timeZone: "Asia/Ho_Chi_Minh",
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                };
-                const timeOptions = {
-                    timeZone: "Asia/Ho_Chi_Minh",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: false,
-                };
-                const timeFormatted = new Intl.DateTimeFormat("en-US", timeOptions).format(now);
-                const dateFormatted = new Intl.DateTimeFormat("en-US", dateOptions).format(now);
-                document.getElementById("date-time").innerText = `${timeFormatted} ${dateFormatted}`;
-            }
-
-            setInterval(updateDateTime, 1000);
-
-            updateDateTime();
         </script>
     </body>
 </html>
