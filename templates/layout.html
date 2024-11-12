@@ -1,110 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/layout.css') }}"
-        />
-        {% block stylesheets %} {% endblock %}
-        <script
-            src="https://kit.fontawesome.com/dfc41e2a92.js"
-            crossorigin="anonymous"
-        ></script>
-        <title>{% block title %}{% endblock %}</title>
-    </head>
-    <body>
-        <aside class="sidebar">
-            <h2>Novel</h2>
-            <nav class="navigation">
-                <ul>
-                    <li>
-                        <a href="{{ url_for('index') }}"
-                            ><i class="fa-solid fa-house"></i>Dashboard</a
-                        >
-                    </li>
-                    <li>
-                        <a href="{{ url_for('booking') }}"
-                            ><i class="fa-solid fa-pen-to-square"></i>Booking</a
-                        >
-                    </li>
-                    <li>
-                        <a href="#"
-                            ><i class="fa-solid fa-clipboard"></i>Guest</a
-                        >
-                    </li>
-                    <li>
-                        <a href="{{ url_for('list_room') }}"
-                            ><i class="fa-solid fa-bookmark"></i>Rooms</a
-                        >
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa-solid fa-tag"></i>Deal</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            ><i class="fa-solid fa-circle-dollar-to-slot"></i
-                            >Rate</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/layout.css') }}"
+    />
+    {% block stylesheets %} {% endblock %}
+    <script
+      src="https://kit.fontawesome.com/dfc41e2a92.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <h2>Novel</h2>
+      <nav class="navigation">
+        <ul>
+          <li>
+            <a href="{{ url_for('index') }}"
+              ><i class="fa-solid fa-house"></i>Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="{{ url_for('booking') }}"
+              ><i class="fa-solid fa-pen-to-square"></i>Booking</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-clipboard"></i>Guest</a>
+          </li>
+          <li>
+            <a href="{{ url_for('list_room') }}"
+              ><i class="fa-solid fa-bookmark"></i>Rooms</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-tag"></i>Deal</a>
+          </li>
+          <li>
+            <a href="#"
+              ><i class="fa-solid fa-circle-dollar-to-slot"></i>Rate</a
+            >
 
-        <main>
-            <header>
-                <div class="header-top">
-                    <div class="header-top-input">
-                        <i
-                            class="fa-solid fa-magnifying-glass"
-                            style="font-size: 1rem; font-weight: bold"
-                        ></i>
-                        <input
-                            type="text"
-                            placeholder="Search for rooms and more..."
-                        />
-                    </div>
-                    <div class="header-top-sub">
-                        <div class="dark-mode-container">
-                            <button id="dark-mode-toggle">
-                                <i class="fa-solid fa-toggle-on"></i>
-                            </button>
-                        </div>
-                        <div class="notification-badge">
-                            <i class="fa-regular fa-bell"></i>
-                        </div>
-
-                        <div class="user-profile">
-                            <img alt="user" src="../static/avatar-2.png" />
-                        </div>
-                    </div>
+            <!--  Đăng nhập  -->
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {% if session.userid %}
+              <a class="user-info">
+                <div class="user-profile">
+                  <img
+                    alt="user"
+                    src="{{ url_for('static', filename='avatar-2.png') }}"
+                  />
                 </div>
-            </header>
-            {% block content %}{% endblock %}
-        </main>
-        <script>
-            const toggleButton = document.getElementById("dark-mode-toggle");
-            const currentTheme = localStorage.getItem("theme");
-            if (currentTheme == "dark")
-                document.body.classList.add("dark-mode");
+                {{ session.name }}
+              </a>
+              <a href="{{ url_for('logout') }}"
+                ><i class="fa-solid fa-sign-out-alt"></i> Logout</a
+              >
+              {% else %}
+              <a href="{{ url_for('login') }}"
+                ><i class="fa-solid fa-sign-in-alt"></i> Login</a
+              >
+              {% endif %}
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </aside>
 
-            toggleButton.addEventListener("click", () => {
-                document.body.classList.toggle("dark-mode");
-                const icon = toggleButton.querySelector("i");
-                if (icon.classList.contains("fa-toggle-on")) {
-                    icon.classList.remove("fa-toggle-on");
-                    icon.classList.add("fa-toggle-off");
-                } else {
-                    icon.classList.remove("fa-toggle-off");
-                    icon.classList.add("fa-toggle-on");
-                }
-                let theme = "light";
-                if (document.body.classList.contains("dark-mode")) {
-                    theme = "dark";
-                }
-                localStorage.setItem("theme", theme);
-            });
-        </script>
-    </body>
+    <main>
+      <header>
+        <div class="header-top">
+          <div class="header-top-input">
+            <i
+              class="fa-solid fa-magnifying-glass"
+              style="font-size: 1rem; font-weight: bold"
+            ></i>
+            <input type="text" placeholder="Search for rooms and more..." />
+          </div>
+          <div class="header-top-sub">
+            <div class="dark-mode-container">
+              <button id="dark-mode-toggle">
+                <i class="fa-solid fa-toggle-on"></i>
+              </button>
+            </div>
+            <div class="notification-badge">
+              <i class="fa-regular fa-bell"></i>
+            </div>
+            <div class="user-profile">
+              <img alt="user" src="../static/avatar-2.png" />
+            </div>
+          </div>
+        </div>
+      </header>
+      {% block content %}{% endblock %}
+    </main>
+    <script>
+      const toggleButton = document.getElementById("dark-mode-toggle");
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme == "dark") document.body.classList.add("dark-mode");
+
+      toggleButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        const icon = toggleButton.querySelector("i");
+        if (icon.classList.contains("fa-toggle-on")) {
+          icon.classList.remove("fa-toggle-on");
+          icon.classList.add("fa-toggle-off");
+        } else {
+          icon.classList.remove("fa-toggle-off");
+          icon.classList.add("fa-toggle-on");
+        }
+        let theme = "light";
+        if (document.body.classList.contains("dark-mode")) {
+          theme = "dark";
+        }
+        localStorage.setItem("theme", theme);
+      });
+    </script>
+  </body>
 </html>
