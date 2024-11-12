@@ -34,7 +34,7 @@ def login():
         
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
         
-        with sqlite3.connect("hotel.db") as conn:
+        with sqlite3.connect("hotel1.db") as conn:
             conn.execute("PRAGMA journal_mode=WAL;")
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM user WHERE email = ? AND password = ?", (email, hashed_password))
@@ -49,7 +49,7 @@ def login():
             if "next" in request.args:
                 return redirect(request.args['next'])
                 
-            return render_template("index.html")
+            return redirect("/")
         else:
             mesage = 'Please enter correct email / password!'
     return render_template('login.html')
@@ -68,7 +68,7 @@ def register():
         password = hashlib.sha256(request.form['password'].encode()).hexdigest()
         email = request.form['email']
         
-        with sqlite3.connect("hotel.db") as conn:
+        with sqlite3.connect("hotel1.db") as conn:
             conn.execute("PRAGMA journal_mode=WAL;")
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM user WHERE email = ?", (email,))

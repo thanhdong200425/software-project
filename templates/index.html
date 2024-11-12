@@ -1,119 +1,114 @@
 {% extends "layout.html" %} {% block title %} Home {% endblock %}
 
 {% block stylesheets %}
-    <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/homepage.css')}}"
-    />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css')}}" />
 {% endblock %}
 
 
 {% block
 content %}
-    <div class="container">
-        <!-- Overview Section -->
-        <div class="overview-section">
-            <h1>Overview</h1>
-            <div class="stats">
-                <div>
-                    <p>Today's Check-in</p>
-                    <span>23</span>
+<div class="container">
+    <!-- Overview Section -->
+    <div class="overview-section">
+        <h1>Overview</h1>
+        <div class="stats">
+            <div>
+                <p>Today's Check-in</p>
+                <span>23</span>
+            </div>
+            <div>
+                <p>Today's Check-out</p>
+                <span>13</span>
+            </div>
+            <div>
+                <p>Total In Hotel</p>
+                <span>60</span>
+            </div>
+            <div>
+                <p>Total Available Room</p>
+                <span>10</span>
+            </div>
+            <div>
+                <p>Total Occupied Room</p>
+                <span>90</span>
+            </div>
+        </div>
+    </div>
+
+    <h1>ANH EM CHƯA CSS CHO PHẦN DƯỚI NÀY NHÁ</h1>
+
+    <!-- Rooms Section -->
+    <section class="rooms-section">
+        <div class="room-box">
+            <h2>Single sharing</h2>
+            <p>2/30</p>
+            <p class="price"><span>$568</span>/day</p>
+        </div>
+        <div class="room-box">
+            <h2>Double sharing</h2>
+            <p>2/35</p>
+            <p class="price"><span>$1,068</span>/day</p>
+        </div>
+        <div class="room-box">
+            <h2>Triple sharing</h2>
+            <p>2/25</p>
+            <p class="price"><span>$1,568</span>/day</p>
+        </div>
+        <div class="room-box">
+            <h2>VIP Suit</h2>
+            <p>4/10</p>
+            <p class="price"><span>$2,568</span>/day</p>
+        </div>
+    </section>
+
+    <!-- Room Status and Floor Status -->
+    <section class="room-status-section">
+        <div class="status-box">
+            <h4>Room Status</h4>
+            <div class="status-content">
+                <div class="status-column">
+                    <p>Occupied rooms: <span>104</span></p>
+                    <p>Clean: <span>90</span></p>
+                    <p>Dirty: <span>4</span></p>
+                    <p>Inspected: <span>60</span></p>
                 </div>
-                <div>
-                    <p>Today's Check-out</p>
-                    <span>13</span>
-                </div>
-                <div>
-                    <p>Total In Hotel</p>
-                    <span>60</span>
-                </div>
-                <div>
-                    <p>Total Available Room</p>
-                    <span>10</span>
-                </div>
-                <div>
-                    <p>Total Occupied Room</p>
-                    <span>90</span>
+                <div class="status-column">
+                    <p>Total rooms: <span>20</span></p>
+                    <p>Clean: <span>30</span></p>
+                    <p>Dirty: <span>19</span></p>
+                    <p>Inspected: <span>30</span></p>
                 </div>
             </div>
         </div>
+        <div class="floor-status">
+            <div class="progress-circle">
+                <span>80%</span>
+            </div>
+        </div>
+    </section>
 
-        <!-- Rooms Section -->
-        <section class="rooms-section">
-            <div class="room-box">
-                <h2>Single sharing</h2>
-                <p>2/30</p>
-                <p class="price"><span>$568</span>/day</p>
+    <!-- Occupancy Statistics and Customer Feedback -->
+    <section class="occupancy-section">
+        <div class="occupancy-box">
+            <h2>Occupancy Statistics</h2>
+            <!-- You can use a library like Chart.js to create the chart here -->
+            <img src="chart-placeholder.png" alt="Occupancy Chart" style="width: 100%" />
+        </div>
+        <div class="feedback-section">
+            <h2>Customer Feedback</h2>
+            <div class="feedback-box">
+                <p>Mark: Food could be better.</p>
+                <span>Room: A201</span>
             </div>
-            <div class="room-box">
-                <h2>Double sharing</h2>
-                <p>2/35</p>
-                <p class="price"><span>$1,068</span>/day</p>
+            <div class="feedback-box">
+                <p>Christian: Facilities are not enough for the amount paid.</p>
+                <span>Room: A101</span>
             </div>
-            <div class="room-box">
-                <h2>Triple sharing</h2>
-                <p>2/25</p>
-                <p class="price"><span>$1,568</span>/day</p>
+            <div class="feedback-box">
+                <p>Alexander: Room cleaning could be better.</p>
+                <span>Room: A301</span>
             </div>
-            <div class="room-box">
-                <h2>VIP Suit</h2>
-                <p>4/10</p>
-                <p class="price"><span>$2,568</span>/day</p>
-            </div>
-        </section>
-
-        <!-- Room Status and Floor Status -->
-        <section class="room-status-section">
-            <div class="status-box">
-                <h4>Room Status</h4>
-                <div class="status-content">
-                    <div class="status-column">
-                        <p>Occupied rooms: <span>104</span></p>
-                        <p>Clean: <span>90</span></p>
-                        <p>Dirty: <span>4</span></p>
-                        <p>Inspected: <span>60</span></p>
-                    </div>
-                    <div class="status-column">
-                        <p>Total rooms: <span>20</span></p>
-                        <p>Clean: <span>30</span></p>
-                        <p>Dirty: <span>19</span></p>
-                        <p>Inspected: <span>30</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="floor-status">
-                <div class="progress-circle">
-                    <span>80%</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Occupancy Statistics and Customer Feedback -->
-        <section class="occupancy-section">
-            <div class="occupancy-box">
-                <h2>Occupancy Statistics</h2>
-                <!-- You can use a library like Chart.js to create the chart here -->
-                <img
-                        src="chart-placeholder.png"
-                        alt="Occupancy Chart"
-                        style="width: 100%"
-                />
-            </div>
-            <div class="feedback-section">
-                <h2>Customer Feedback</h2>
-                <div class="feedback-box">
-                    <p>Mark: Food could be better.</p>
-                    <span>Room: A201</span>
-                </div>
-                <div class="feedback-box">
-                    <p>Christian: Facilities are not enough for the amount paid.</p>
-                    <span>Room: A101</span>
-                </div>
-                <div class="feedback-box">
-                    <p>Alexander: Room cleaning could be better.</p>
-                    <span>Room: A301</span>
-                </div>
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
+</div>
 {% endblock %}
