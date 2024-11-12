@@ -187,7 +187,7 @@ def create_room():
         flash('Room added successfully!')
         return redirect(url_for('list_rooms'))
 
-    return render_template('create_room.html')
+    return render_template('CRUD_Room/create_room.html')
 
 @app.route('/list_room/edit/<int:room_id>', methods=['GET', 'POST'])
 def edit_room(room_id):
@@ -215,7 +215,7 @@ def edit_room(room_id):
         return redirect(url_for('list_rooms'))
 
     conn.close()
-    return render_template('edit_room.html', room=room)
+    return render_template('CRUD_Room/edit_room.html', room=room)
 
 @app.route('/rooms/delete/<int:room_id>', methods=['POST'])
 def delete_room(room_id):
