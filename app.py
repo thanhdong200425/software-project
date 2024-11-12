@@ -1,10 +1,6 @@
 import os
 from datetime import datetime
-from flask import Flask, render_template, request, flash, redirect, url_for, session
-from database.database_function import add_new_record, get_all_rooms, validate_user, read_users
-=======
-from flask import Flask, render_template, request, flash, redirect,url_for
-
+from flask import Flask, render_template, request, flash, redirect,url_for, session
 from database.database_function import add_new_record
 from database.database_function import get_all_rooms
 from database.database_function import get_db_connection
@@ -16,7 +12,7 @@ import hashlib
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-connection = sqlite3.connect("hotel.db", timeout=10)
+connection = sqlite3.connect("hotel1.db", timeout=10)
 cursor = connection.cursor()
 connection.commit()
 connection.close()
@@ -31,7 +27,7 @@ def login_required(f):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    mesage = ''
+    message = ''
     if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
         email = request.form['email']
         password = request.form['password']
@@ -53,21 +49,20 @@ def login():
             if "next" in request.args:
                 return redirect(request.args['next'])
                 
-            return redirect(url_for('index'))
+            return render_template("index.html")
         else:
             mesage = 'Please enter correct email / password!'
-    return render_template('login.html', mesage=mesage)
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('login'))
-=======
 app.secret_key = os.urandom(24)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    mesage = ''
+    message = ''
     if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form:
         userName = request.form['name']
         password = hashlib.sha256(request.form['password'].encode()).hexdigest()
@@ -87,10 +82,10 @@ def register():
                 cursor.execute("INSERT INTO user (name, email, password) VALUES (?, ?, ?)", (userName, email, password))
                 conn.commit()
                 mesage = 'You have successfully registered!'
-                return render_template('login.html', mesage=mesage)
+                return render_template('login.html')
     elif request.method == 'POST':
         mesage = 'Please fill out the form!'
-    return render_template('register.html', mesage=mesage)
+    return render_template('register.html')
 
 @app.route("/")
 @login_required

@@ -43,7 +43,7 @@ def get_all_rooms():
     connection.close()
     return rooms
 
-  def read_users():
+def read_users():
     connection = sqlite3.connect('hotel.db')
     cursor = connection.cursor()
     query = "SELECT * FROM user"
@@ -62,8 +62,8 @@ def validate_user(email, password):
     connection.close()
     return user
   
-authenticated_user = validate_user(email="example@example.com", password="your_password")
-all_users = read_users()
+# authenticated_user = validate_user(email="example@example.com", password="your_password")
+# all_users = read_users()
 
 def count_all_records_from_table(table, condition=None, condition_params=()):
     connection = get_db_connection()
