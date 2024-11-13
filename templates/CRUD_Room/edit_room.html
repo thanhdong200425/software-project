@@ -9,10 +9,10 @@
 {% block content %}
 <div class="container">
     <h1>Edit Room</h1>
-    <form action="{{ url_for('edit_room', room_id=room['id']) }}" method="POST" class="room-form">
+    <form action="{{ url_for('edit_room', room_id=room['room_id']) }}" method="POST" class="room-form">
         <div class="form-group">
             <label for="name">Room Name:</label>
-            <input type="text" id="name" name="name" value="{{ room['name'] }}" required>
+            <input type="text" id="name" name="room_name" value="{{ room['room_name'] }}" required>
         </div>
         <div class="form-group">
             <label for="type">Type:</label>
