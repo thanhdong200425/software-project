@@ -221,17 +221,19 @@ def booking():
 @app.route("/list_room", methods=["GET"])
 @login_required
 def list_room():
-    rooms = get_all_rooms()
-    return render_template("list_room.html", rooms=rooms)
-
-
-@app.route("/rooms")
-@login_required
-def list_rooms():
     conn = get_db_connection()
     rooms = conn.execute("SELECT * FROM room").fetchall()
     conn.close()
     return render_template("list_room.html", rooms=rooms)
+
+
+# @app.route("/rooms")
+# @login_required
+# def list_rooms():
+#     conn = get_db_connection()
+#     rooms = conn.execute("SELECT * FROM room").fetchall()
+#     conn.close()
+#     return render_template("list_room.html", rooms=rooms)
 
 
 @app.route("/list_room/create", methods=["GET", "POST"])
@@ -248,25 +250,25 @@ def create_room():
 
         conn = get_db_connection()
         conn.execute(
-            "INSERT INTO room (name, type, price_per_night, service, description, capacity, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO room (room_name, type, price_per_night, service, description, capacity, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
             (room_name, room_type, price, service, description, capacity, status),
         )
         conn.commit()
         conn.close()
         flash("Room added successfully!")
-        return redirect(url_for("list_rooms"))
+        return redirect(url_for("list_room"))
 
-    return render_template("create_room.html")
+    return render_template('CRUD_Room/create_room.html')
 
 
 @app.route("/list_room/edit/<int:room_id>", methods=["GET", "POST"])
 @login_required
 def edit_room(room_id):
     conn = get_db_connection()
-    room = conn.execute("SELECT * FROM room WHERE id = ?", (room_id,)).fetchone()
+    room = conn.execute("SELECT * FROM room WHERE room_id = ?", (room_id,)).fetchone()
 
     if request.method == "POST":
-        room_name = request.form["name"]
+        room_name = request.form["room_name"]
         room_type = request.form["type"]
         price = request.form["price_per_night"]
         service = request.form["service"]
@@ -279,7 +281,7 @@ def edit_room(room_id):
             return redirect(url_for("edit_room", room_id=room_id))
 
         conn.execute(
-            "UPDATE room SET name = ?, type = ?, price_per_night = ?, service = ?, description = ?, capacity = ?, status = ? WHERE id = ?",
+            "UPDATE room SET room_name = ?, type = ?, price_per_night = ?, service = ?, description = ?, capacity = ?, status = ? WHERE room_id = ?",
             (
                 room_name,
                 room_type,
@@ -294,21 +296,21 @@ def edit_room(room_id):
         conn.commit()
         conn.close()
         flash("Room updated successfully!")
-        return redirect(url_for("list_rooms"))
+        return redirect(url_for("list_room"))
 
     conn.close()
-    return render_template("edit_room.html", room=room)
+    return render_template('CRUD_Room/edit_room.html', room=room)
 
 
 @app.route("/rooms/delete/<int:room_id>", methods=["POST"])
 @login_required
 def delete_room(room_id):
     conn = get_db_connection()
-    conn.execute("DELETE FROM room WHERE id = ?", (room_id,))
+    conn.execute("DELETE FROM room WHERE room_id = ?", (room_id,))
     conn.commit()
     conn.close()
     flash("Room deleted successfully!")
-    return redirect(url_for("list_rooms"))
+    return redirect(url_for("list_room"))
 
 
 if __name__ == "__main__":
