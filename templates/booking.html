@@ -1,14 +1,61 @@
 {% extends "layout.html" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/booking.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/booking.css') }}">
 {% endblock %}
 
 {% block title %} Booking {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>Booking</h1>
+<!-- <div class="container">
+    <h1>Booking</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div> -->
+
+
+<div class="calendar_container">
+    <div class="calendar">
+        <div class="calendar_header">
+            <div class="calendar_month"></div>
+            <div class="calendar_btns">
+                <div class="btn today-btn">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <div class="btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="btn next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+        <div class="calendar_weekdays">
+            <div class="day">Sun</div>
+            <div class="day">Mon</div>
+            <div class="day">Tue</div>
+            <div class="day">Wed</div>
+            <div class="day">Thu</div>
+            <div class="day">Fri</div>
+            <div class="day">Sat</div>
+        </div>
+        <div class="calendar_days">
+            <!-- lets add days using js -->
+        </div>
+    </div>
+</div>
+
+<div id="bookingModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>Đặt phòng</h1>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <ul class="flashes">
@@ -19,24 +66,30 @@
             {% endif %}
         {% endwith %}
         <form method="post" action="/booking">
-            <label for="customer-name">Customer name</label>
-            <input type="text" id="customer-name" name="customer-name" class="error-input" aria-label="Customer-name"
-                   placeholder="Enter customer name">
+            <label for="modal-customer-name">Customer name</label>
+            <input type="text" id="modal-customer-name" name="customer-name" placeholder="Enter customer name">
 
-            <label for="room">Room</label>
-            <input type="text" id="room" name="room" placeholder="Enter room">
+            <label for="modal-room">Room</label>
+            <select name="room_name" id="modal-room">
+                {% for room in available_rooms %}
+                    <option value="{{ room['room_id'] }}">{{ room['room_name'] }}</option>
+                {% endfor %}
+            </select>
 
-            <label for="check-in-date">Checkin date</label>
-            <input type="date" id="check-in-date" name="check-in-date" placeholder="Select expect checkin date">
+            <label for="modal-check-in-date">Check-in date</label>
+            <input type="date" id="modal-check-in-date" name="check-in-date">
 
-            <label for="check-out-date">Checkout date</label>
-            <input type="date" id="check-out-date" name="check-out-date">
+            <label for="modal-check-out-date">Check-out date</label>
+            <input type="date" id="modal-check-out-date" name="check-out-date">
 
-            <label for="total-people">Total people</label>
-            <input type="number" id="total-people" name="total-people" placeholder="Enter total of people">
+            <label for="modal-total-people">Total people</label>
+            <input type="number" id="modal-total-people" name="total-people" placeholder="Enter total people">
 
-            <button type="reset" class="button cancel">Reset</button>
-            <button type="submit" class="button next">Submit</button>
+            <button name="booking_hotel" type="submit">Book Now</button>
         </form>
     </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 {% endblock %}

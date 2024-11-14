@@ -171,7 +171,10 @@ def index():
 @login_required
 def booking():
     if request.method == "GET":
-        return render_template("booking.html")
+        conn = get_db_connection()
+        available_rooms = conn.execute("SELECT * FROM room WHERE status='available'").fetchall()
+        conn.close()
+        return render_template("booking.html", available_rooms=available_rooms)
 
     customer_name = request.form.get("customer-name")
     customer = is_existing_data("customer", "name", customer_name)
@@ -182,8 +185,8 @@ def booking():
         )
         return redirect("/booking")
 
-    room_name = request.form.get("room")
-    room = is_existing_data("room", "name", room_name)
+    room_id = request.form.get("room_name")
+    room = is_existing_data("room", "room_id", room_id)
     if not room:
         flash(
             "Room name does not exist. Please try to enter another room name", "error"
@@ -218,6 +221,7 @@ def booking():
     return redirect("/booking")
 
 
+
 @app.route("/list_room", methods=["GET"])
 @login_required
 def list_room():
@@ -240,7 +244,7 @@ def list_room():
 @login_required
 def create_room():
     if request.method == "POST":
-        room_name = request.form["name"]
+        room_name = request.form["room_name"]
         room_type = request.form["type"]
         price = request.form["price_per_night"]
         service = request.form["service"]
@@ -255,7 +259,7 @@ def create_room():
         )
         conn.commit()
         conn.close()
-        flash("Room added successfully!")
+        # flash("Room added successfully!")
         return redirect(url_for("list_room"))
 
     return render_template('CRUD_Room/create_room.html')
@@ -295,7 +299,7 @@ def edit_room(room_id):
         )
         conn.commit()
         conn.close()
-        flash("Room updated successfully!")
+        # flash("Room updated successfully!")
         return redirect(url_for("list_room"))
 
     conn.close()
@@ -309,7 +313,7 @@ def delete_room(room_id):
     conn.execute("DELETE FROM room WHERE room_id = ?", (room_id,))
     conn.commit()
     conn.close()
-    flash("Room deleted successfully!")
+    # flash("Room deleted successfully!")
     return redirect(url_for("list_room"))
 
 

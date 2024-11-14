@@ -21,10 +21,12 @@ CREATE TABLE room
    
 
 )
-Alter table room add column price_per_night float
-Alter table room add column  service text
-Alter table room add column description text
-Alter table room add column capacity integer,
+
+-- Thêm từng cột vào bảng room
+ALTER TABLE room ADD COLUMN price_per_night FLOAT;
+ALTER TABLE room ADD COLUMN service TEXT;
+ALTER TABLE room ADD COLUMN description TEXT;
+ALTER TABLE room ADD COLUMN capacity INTEGER;
 
 
 -- Booking table
