@@ -1,4 +1,5 @@
 import os
+import redis
 from datetime import datetime
 from typing import final
 
@@ -12,6 +13,15 @@ import hashlib
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
+app.config["SESSION_TYPE"] = "redis"
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+app.config["SESSION_KEY_PREFIX"] = "your_app_session:"
+app.config["SESSION_REDIS"] = redis.Redis(
+    host='redis-11725.c257.us-east-1-3.ec2.redns.redis-cloud.com',
+    port=11725,
+    password='fzcGxR1euqu8l4Tw8J0zYETbBWYGNilA')
 
 
 def login_required(f):
