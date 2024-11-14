@@ -104,8 +104,14 @@
     margin-right: 0; /* Không thêm margin cho nút cuối cùng */
 }
 
+.btn-edit, .btn-delete {
+    text-align: center;
+    padding: 0.3rem;
+    font-weight: bold;
+}
+
 .btn-edit {
-    background-color: #007bff; /* Màu nền cho nút sửa */
+    background-color: #007bff;
 }
 
 .btn-edit:hover {
@@ -114,10 +120,24 @@
 }
 
 .btn-delete {
-    background-color: #dc3545; /* Màu nền cho nút xóa */
+    background-color: #dc3545;
 }
 
 .btn-delete:hover {
     background-color: #c82333;
     transform: translateY(-2px);
+}
+
+.status {
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.available-status {
+    background-color: #4CAF50;
+}
+
+.ongoing-status {
+    background-color: #4a90e2;
 }

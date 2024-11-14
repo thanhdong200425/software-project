@@ -91,3 +91,7 @@
 .button {
     max-width: 50%;
 }
+
+#spinner {
+    margin-right: 5px;
+}
