@@ -70,21 +70,23 @@
             <input type="text" id="modal-customer-name" name="customer-name" placeholder="Enter customer name">
 
             <label for="modal-room">Room</label>
-            <select name="room_name" id="modal-room">
-                {% for room in available_rooms %}
-                    <option value="{{ room['room_id'] }}">{{ room['room_name'] }}</option>
+            <select id="room_id" name="room_id" required>
+                <option value="" disabled selected>Select Room</option>
+                {% for room in rooms %}
+                    <option value="{{ room.room_id }}">{{ room.room_name }} ({{ room.type }})</option>
                 {% endfor %}
             </select>
 
             <label for="modal-check-in-date">Check-in date</label>
-            <input type="date" id="modal-check-in-date" name="check-in-date">
+            <input type="date" id="modal-check-in-date" name="check-in-date"required>
 
             <label for="modal-check-out-date">Check-out date</label>
-            <input type="date" id="modal-check-out-date" name="check-out-date">
+            <input type="date" id="modal-check-out-date" name="check-out-date"required>
 
             <label for="modal-total-people">Total people</label>
-            <input type="number" id="modal-total-people" name="total-people" placeholder="Enter total people">
+            <input type="number" id="modal-total-people" name="total-people" placeholder="Enter total people"required>
 
+            <button type="reset" class="button cancel">Reset</button>
             <button name="booking_hotel" type="submit">Book Now</button>
         </form>
     </div>

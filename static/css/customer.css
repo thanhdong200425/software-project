@@ -1,0 +1,71 @@
+/* customer.css */
+
+/* Container */
+.container {
+    width: 90%;
+    padding: 2rem;
+    margin: 20px auto;
+    background-color: #f8f8f8;
+}
+
+.container h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #4a4a4a;
+}
+
+h3 {
+    font-size: 20px;
+    color: #4a90e2;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table thead th {
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.table tbody tr {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tbody td {
+    padding: 12px 15px;
+    color: #333;
+}
+
+/* Flashes (notifications) */
+.flashes li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.flashes li.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.flashes li.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* Responsive Table */
+.table-responsive {
+    overflow-x: auto;
+}

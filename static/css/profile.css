@@ -1,0 +1,83 @@
+/* Profile Section */
+.profile-container {
+    padding: 2rem;
+    margin: 2rem auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Table for profile fields */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #4a90e2;
+    color: white;
+}
+
+table td input, table td textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+table td input[readonly], table td textarea[readonly] {
+    background-color: #f0f0f0;
+}
+
+/* Submit button */
+.text-center button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.text-center button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark Mode Styles */
+.dark-mode .profile-container {
+    background-color: #333;
+}
+
+.dark-mode table th {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.dark-mode table td input, .dark-mode table td textarea {
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+.dark-mode .text-center button {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode .text-center button:hover {
+    background-color: #555;
+}
