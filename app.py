@@ -24,14 +24,10 @@ app.config["SESSION_REDIS"] = redis.Redis(
     password='fzcGxR1euqu8l4Tw8J0zYETbBWYGNilA')
 
 
-def login_required(f):
-    @wraps(f)
-    def check(*args, **kwargs):
-        if not session.get("logged_in"):
-            return redirect(url_for("login", next=request.url))
-        return f(*args, **kwargs)
-
-    return check
+@app.before_request
+def check_login():
+    if request.endpoint not in ['login', 'register'] and not session.get("logged_in"):
+        return redirect(url_for("login", next=request.url))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -60,7 +56,6 @@ def login():
 
 
 @app.route("/logout")
-@login_required
 def logout():
     session.clear()
     return redirect(url_for("login"))
@@ -91,7 +86,6 @@ def register():
     return render_template("register.html")
 
 @app.route("/")
-@login_required
 def index():
     # Just some mock data
     bookings = [
@@ -178,7 +172,6 @@ def index():
 
 
 @app.route("/booking", methods=["GET", "POST"])
-@login_required
 def booking():
     if request.method == "GET":
         conn = get_db_connection()
@@ -233,7 +226,6 @@ def booking():
 
 
 @app.route("/list_room", methods=["GET"])
-@login_required
 def list_room():
     conn = get_db_connection()
     rooms = conn.execute("SELECT * FROM room").fetchall()
@@ -251,7 +243,6 @@ def list_room():
 
 
 @app.route("/list_room/create", methods=["GET", "POST"])
-@login_required
 def create_room():
     if request.method == "POST":
         room_name = request.form["room_name"]
@@ -276,7 +267,6 @@ def create_room():
 
 
 @app.route("/list_room/edit/<int:room_id>", methods=["GET", "POST"])
-@login_required
 def edit_room(room_id):
     conn = get_db_connection()
     room = conn.execute("SELECT * FROM room WHERE room_id = ?", (room_id,)).fetchone()
@@ -317,7 +307,6 @@ def edit_room(room_id):
 
 
 @app.route("/rooms/delete/<int:room_id>", methods=["POST"])
-@login_required
 def delete_room(room_id):
     conn = get_db_connection()
     conn.execute("DELETE FROM room WHERE room_id = ?", (room_id,))

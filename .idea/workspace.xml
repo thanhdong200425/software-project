@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e1800f6d-764c-4552-ae1e-40ff11908f8a" name="Changes" comment="Merge master">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,6 +164,8 @@
       <workItem from="1731403669198" duration="2186000" />
       <workItem from="1731546804858" duration="2776000" />
       <workItem from="1731552726733" duration="5000" />
+      <workItem from="1731552882542" duration="290000" />
+      <workItem from="1731671347571" duration="474000" />
     </task>
     <task id="LOCAL-00001" summary="fix some code">
       <option name="closed" value="true" />
