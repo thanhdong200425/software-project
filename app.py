@@ -128,35 +128,36 @@ def booking():
 
     if request.method == 'POST':
         room_id = request.form['room_id']
+        customer_name = request.form['customer-name']
         checkin_date = request.form['check-in-date']
         checkout_date = request.form['check-out-date']
         total_people = request.form['total-people']
 
-        customer_id = session.get('user_id')
-
-        if not customer_id:
-            flash("Please Login!.", "error")
-            # return redirect(url_for('login'))
-
         conn = get_db_connection()
-        room_exists = conn.execute("SELECT 1 FROM room WHERE room_id = ? AND status = 'available'", (room_id,)).fetchone()
-        customer_id = session.get('user_id')
-        customer_exists = conn.execute("SELECT * FROM customer WHERE customer_id = ?", (customer_id,)).fetchone()
+        customer = conn.execute(
+            "SELECT customer_id FROM customer WHERE name = ?", (customer_name,)
+        ).fetchone()
 
-        if not room_exists:
-            flash("Room does not exist or is invalid .", "error")
+        if not customer:
+            flash("Customer does not exist or is invalid.", "error")
             conn.close()
             return redirect('/booking')
+        
+        customer_id = customer['customer_id']
 
-        if not customer_exists:
-            flash("Customer does not exist or is invalid.", "error")
+        # Kiểm tra xem phòng có tồn tại và còn trống hay không
+        room_exists = conn.execute(
+            "SELECT 1 FROM room WHERE room_id = ? AND status = 'available'", (room_id,)
+        ).fetchone()
+        if not room_exists:
+            flash("Room does not exist or is already booked.", "error")
             conn.close()
             return redirect('/booking')
 
         conn.execute("""
             INSERT INTO booking (customer_id, room_id, status, book_day, expected_checkin, expected_checkout, total_people)
             VALUES (?, ?, 'ongoing', CURRENT_DATE, ?, ?, ?)
-        """, (session['user_id'], room_id, checkin_date, checkout_date, total_people))
+        """, (customer_id, room_id, checkin_date, checkout_date, total_people))
 
         conn.commit()
         conn.close()
@@ -229,10 +230,6 @@ def profile():
 
     conn.close()
     return render_template('profile.html', customer=customer)
-
-
-
-
 
 @app.route("/list_room", methods=["GET"])
 def list_room():
