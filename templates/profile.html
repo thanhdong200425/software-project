@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>Customer Profile</h1>
+    <div class="profile-container">
+        <form method="POST">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>
+                            <input type="text" name="name" value="{{ session.get('customer_name') }}" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>
+                            <input type="email" name="email" value="{{ session.get('email') }}" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Date of Birth (DOB)</td>
+                        <td>
+                            <input type="date" name="dob" value="{{ customer['dob'] }}" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Credit Card</td>
+                        <td>
+                            <input type="text" name="credit_card" value="{{ customer['credit_card'] }}" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>
+                            <textarea name="address" rows="4" >{{ customer['address'] }}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Company ID</td>
+                        <td>
+                            <input type="text" name="company_id" value="{{ customer['company_id'] }}">
+                        </td>
+                    </tr>
+                </tbody>
+                
+            </table>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
