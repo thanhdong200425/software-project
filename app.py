@@ -24,43 +24,47 @@ app.config["SESSION_REDIS"] = redis.Redis(
     password='fzcGxR1euqu8l4Tw8J0zYETbBWYGNilA')
 
 
-def login_required(f):
-    @wraps(f)
-    def check(*args, **kwargs):
-        if not session.get("logged_in"):
-            return redirect(url_for("login", next=request.url))
-        return f(*args, **kwargs)
-
-    return check
+@app.before_request
+def check_authentication():
+    if request.endpoint not in ['login', 'register'] and not session.get("logged_in"):
+        return redirect(url_for("login"))
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        conn = get_db_connection()
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-        user = fetch_data_from_table(table="user", column="*", condition="email = ?",
-                                     condition_params=(email,), fetch_one=True)
-        
+        user = conn.execute("SELECT * FROM user WHERE email = ? AND password = ?", (email, hashed_password)).fetchone()
 
-        if user and user[3] == hashed_password:
-            session["logged_in"] = True
-            session["userid"] = user[0]
-
-            if "next" in request.args:
-                return redirect(request.args["next"])
-
-            return redirect("/")
+        if user:
+            session['logged_in'] = True
+            session['user_id'] = user['userid']
+            session['email'] = user['email']
+            session['customer_name'] = user['name']
+            conn.execute(
+                """
+                UPDATE customer
+                SET name = ?
+                WHERE customer_id = ?
+                """,
+                (user['name'], user['userid'])
+            )
+            conn.commit()
+            conn.close()
+            return redirect('/')
         else:
-            message = "Please enter correct email / password!"
-            return render_template("login.html", message=message)
-    
-    return render_template("login.html")
+            flash("Login information is wrong", "error")
+            # return redirect('/login')
+
+    return render_template('login.html')
+
 
 
 @app.route("/logout")
-@login_required
 def logout():
     session.clear()
     return redirect(url_for("login"))
@@ -77,11 +81,11 @@ def register():
         user = fetch_data_from_table(table="user", column="*", condition="email = ? AND password = ?",
                                      condition_params=(email, hashed_password), fetch_one=True)
         if user:
-                message = "Account already exists!"
-                return render_template("register.html", message=message)
+            message = "Account already exists!"
+            return render_template("register.html", message=message)
         elif not username or not password or not email:
-                message = "Please fill out the form!"
-                return render_template("register.html", message=message)
+            message = "Please fill out the form!"
+            return render_template("register.html", message=message)
         else:
             # Add a new user into database
             add_new_record(table="user", column=["name", "email", "password"], params=(username, email, hashed_password))
@@ -91,149 +95,146 @@ def register():
     return render_template("register.html")
 
 @app.route("/")
-@login_required
 def index():
-    # Just some mock data
-    bookings = [
-        {
-            "id": 1,
-            "customer_name": "John Doe",
-            "status": "Checked-in",
-            "book_day": "2024-10-15",
-            "expected_checkin": "2024-10-20",
-            "expected_checkout": "2024-10-25",
-            "actual_checkin": "2024-10-20",
-            "checkout": None,
-            "total_people": 2,
-        },
-        {
-            "id": 2,
-            "customer_name": "Jane Smith",
-            "status": "Checked-out",
-            "book_day": "2024-10-10",
-            "expected_checkin": "2024-10-18",
-            "expected_checkout": "2024-10-20",
-            "actual_checkin": "2024-10-18",
-            "checkout": "2024-10-20",
-            "total_people": 1,
-        },
-        {
-            "id": 3,
-            "customer_name": "Alice Johnson",
-            "status": "Checked-in",
-            "book_day": "2024-10-12",
-            "expected_checkin": "2024-10-21",
-            "expected_checkout": "2024-10-28",
-            "actual_checkin": "2024-10-21",
-            "checkout": None,
-            "total_people": 3,
-        },
-        {
-            "id": 4,
-            "customer_name": "Bob Brown",
-            "status": "Reserved",
-            "book_day": "2024-10-14",
-            "expected_checkin": "2024-10-22",
-            "expected_checkout": "2024-10-25",
-            "actual_checkin": None,
-            "checkout": None,
-            "total_people": 2,
-        },
-        {
-            "id": 5,
-            "customer_name": "Emily White",
-            "status": "Cancelled",
-            "book_day": "2024-10-17",
-            "expected_checkin": "2024-10-24",
-            "expected_checkout": "2024-10-27",
-            "actual_checkin": None,
-            "checkout": None,
-            "total_people": 0,
-        },
-        {
-            "id": 5,
-            "customer_name": "Emily White",
-            "status": "Cancelled",
-            "book_day": "2024-10-17",
-            "expected_checkin": "2024-10-24",
-            "expected_checkout": "2024-10-27",
-            "actual_checkin": None,
-            "checkout": None,
-            "total_people": 0,
-        },
-        # Add more bookings here as needed
-    ]
-    page = request.args.get("page", 1, type=int)
-    per_page = 5
+    conn = get_db_connection()
+    bookings = conn.execute("""
+        SELECT booking.booking_id AS id, customer.name AS customer_name, booking.status,
+               booking.book_day, booking.expected_checkin, booking.expected_checkout,
+               booking.actual_checkin, booking.actual_checkout, booking.total_people
+        FROM booking
+        JOIN customer ON booking.customer_id = customer.customer_id
+        ORDER BY booking.book_day DESC
+    """).fetchall()
+    conn.close()
+
+    page, per_page = request.args.get("page", 1, type=int), 5
+    paginated_bookings = bookings[(page - 1) * per_page : page * per_page]
     total_pages = (len(bookings) - 1) // per_page + 1
 
-    # Get only the bookings for the current page
-    start = (page - 1) * per_page
-    end = start + per_page
-    paginated_bookings = bookings[start:end]
+    return render_template("index.html", bookings=paginated_bookings, page=page, total_pages=total_pages)
 
-    return render_template(
-        "index.html", bookings=paginated_bookings, page=page, total_pages=total_pages
-    )
-
-
-@app.route("/booking", methods=["GET", "POST"])
-@login_required
+@app.route('/booking', methods=['POST', 'GET'])
 def booking():
-    if request.method == "GET":
+    if 'user_id' not in session:
+        flash("Login for booking.", "error")
+        # return redirect('/login')
+
+    conn = get_db_connection()
+    customers = conn.execute("SELECT * FROM customer").fetchall()
+    rooms = conn.execute("SELECT * FROM room WHERE status = 'available'").fetchall()
+    conn.close()
+
+    customer_name = session.get("customer_name")
+
+    if request.method == 'POST':
+        room_id = request.form['room_id']
+        checkin_date = request.form['check-in-date']
+        checkout_date = request.form['check-out-date']
+        total_people = request.form['total-people']
+
+        customer_id = session.get('user_id')
+
+        if not customer_id:
+            flash("Please Login!.", "error")
+            # return redirect(url_for('login'))
+
         conn = get_db_connection()
-        available_rooms = conn.execute("SELECT * FROM room WHERE status='available'").fetchall()
+        room_exists = conn.execute("SELECT 1 FROM room WHERE room_id = ? AND status = 'available'", (room_id,)).fetchone()
+        customer_id = session.get('user_id')
+        customer_exists = conn.execute("SELECT * FROM customer WHERE customer_id = ?", (customer_id,)).fetchone()
+
+        if not room_exists:
+            flash("Room does not exist or is invalid .", "error")
+            conn.close()
+            return redirect('/booking')
+
+        if not customer_exists:
+            flash("Customer does not exist or is invalid.", "error")
+            conn.close()
+            return redirect('/booking')
+
+        conn.execute("""
+            INSERT INTO booking (customer_id, room_id, status, book_day, expected_checkin, expected_checkout, total_people)
+            VALUES (?, ?, 'ongoing', CURRENT_DATE, ?, ?, ?)
+        """, (session['user_id'], room_id, checkin_date, checkout_date, total_people))
+
+        conn.commit()
         conn.close()
-        return render_template("booking.html", available_rooms=available_rooms)
 
-    customer_name = request.form.get("customer-name")
-    customer = is_existing_data("customer", "name", customer_name)
-    if not customer:
-        flash(
-            "Username does not exist. Please try to enter another customer name",
-            "error",
-        )
-        return redirect("/booking")
+        flash("Booking success!", "success")
+        return redirect('/booking')
 
-    room_id = request.form.get("room_name")
-    room = is_existing_data("room", "room_id", room_id)
-    if not room:
-        flash(
-            "Room name does not exist. Please try to enter another room name", "error"
-        )
-        return redirect("/booking")
+    return render_template('booking.html', customers=customers, rooms=rooms, customer_name=customer_name)
 
-    checkout_date = request.form.get("check-out-date")
-    checkin_date = request.form.get("check-in-date")
-    total_people = request.form.get("total-people")
-    add_new_record(
-        "booking",
-        [
-            "customer_id",
-            "room_id",
-            "status",
-            "book_day",
-            "expected_checkin",
-            "expected_checkout",
-            "total_people",
-        ],
-        (
-            customer[0],
-            room[0],
-            "ongoing",
-            datetime.now(),
-            checkin_date,
-            checkout_date,
-            total_people,
-        ),
-    )
-    flash("Added booking", "success")
-    return redirect("/booking")
+
+
+@app.route('/customer', methods=["GET"])
+def customer():
+    try:
+        conn = get_db_connection()
+        customers = conn.execute("""SELECT *
+                                    FROM customer""").fetchall()
+        conn.close()
+
+        if not customers:
+            flash("No customer data!", "error")
+            return redirect(url_for('index'))
+
+        return render_template('customer.html', customers=customers)
+
+    except Exception as e:
+        flash(f"An error has occurred: {str(e)}", "error")
+        return redirect(url_for('index'))
+
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    if 'user_id' not in session:
+        flash("Please login.", "error")
+        # return redirect(url_for('login'))
+
+    conn = get_db_connection()
+
+    customer = conn.execute("SELECT * FROM customer WHERE customer_id = ?", (session['user_id'],)).fetchone()
+
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        dob = request.form["dob"]
+        credit_card = request.form["credit_card"]
+        address = request.form["address"]
+        company_id = request.form["company_id"]
+
+        if customer:
+            conn.execute(
+                """
+                UPDATE customer
+                SET name = ?, email = ?, dob = ?, credit_card = ?, address = ?, company_id = ?
+                WHERE customer_id = ?
+                """,
+                (name, email, dob, credit_card, address, company_id, session['user_id'])
+            )
+            flash("Updated information successfully!", "success")
+        else:
+            add_new_record(
+                table="customer",
+                column=["name", "email", "dob", "address", "credit_card", "company_id"],
+                params=(name, email, dob, address, credit_card, company_id)
+            )
+            flash("New customer account created!", "success")
+
+        conn.commit()
+        conn.close()
+        session['customer_name'] = name
+        return redirect(url_for("customer"))
+
+    conn.close()
+    return render_template('profile.html', customer=customer)
+
+
 
 
 
 @app.route("/list_room", methods=["GET"])
-@login_required
 def list_room():
     conn = get_db_connection()
     rooms = conn.execute("SELECT * FROM room").fetchall()
@@ -241,17 +242,7 @@ def list_room():
     return render_template("list_room.html", rooms=rooms)
 
 
-# @app.route("/rooms")
-# @login_required
-# def list_rooms():
-#     conn = get_db_connection()
-#     rooms = conn.execute("SELECT * FROM room").fetchall()
-#     conn.close()
-#     return render_template("list_room.html", rooms=rooms)
-
-
 @app.route("/list_room/create", methods=["GET", "POST"])
-@login_required
 def create_room():
     if request.method == "POST":
         room_name = request.form["room_name"]
@@ -276,7 +267,6 @@ def create_room():
 
 
 @app.route("/list_room/edit/<int:room_id>", methods=["GET", "POST"])
-@login_required
 def edit_room(room_id):
     conn = get_db_connection()
     room = conn.execute("SELECT * FROM room WHERE room_id = ?", (room_id,)).fetchone()
@@ -317,7 +307,6 @@ def edit_room(room_id):
 
 
 @app.route("/rooms/delete/<int:room_id>", methods=["POST"])
-@login_required
 def delete_room(room_id):
     conn = get_db_connection()
     conn.execute("DELETE FROM room WHERE room_id = ?", (room_id,))
