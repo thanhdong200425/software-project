@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1800f6d-764c-4552-ae1e-40ff11908f8a" name="Changes" comment="Merge master">
+    <list default="true" id="e1800f6d-764c-4552-ae1e-40ff11908f8a" name="Changes" comment="Change ..">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel1.db" beforeDir="false" afterPath="$PROJECT_DIR$/hotel1.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel1.db-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel1.db-wal" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,6 +163,7 @@
       <workItem from="1731552726733" duration="5000" />
       <workItem from="1731552882542" duration="290000" />
       <workItem from="1731671347571" duration="474000" />
+      <workItem from="1731720029397" duration="510000" />
     </task>
     <task id="LOCAL-00001" summary="fix some code">
       <option name="closed" value="true" />
@@ -192,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731380870840</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Change ..">
+      <option name="closed" value="true" />
+      <created>1731720145567</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731720145567</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,7 +222,8 @@
     <MESSAGE value="Add Gunicorn to requirements and update Procfile" />
     <MESSAGE value="Merge from hong" />
     <MESSAGE value="Merge master" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge master" />
+    <MESSAGE value="Change .." />
+    <option name="LAST_COMMIT_MESSAGE" value="Change .." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/software_project$project.coverage" NAME="project Coverage Results" MODIFIED="1731546816653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
