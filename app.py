@@ -103,7 +103,7 @@ def index():
                booking.actual_checkin, booking.actual_checkout, booking.total_people
         FROM booking
         JOIN customer ON booking.customer_id = customer.customer_id
-        ORDER BY booking.book_day DESC
+        ORDER BY booking.book_day ASC
     """).fetchall()
     conn.close()
 

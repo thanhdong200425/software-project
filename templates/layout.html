@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" />
         {% block stylesheets %} {% endblock %}
-        <script src="https://kit.fontawesome.com/dfc41e2a92.js" crossorigin="anonymous"></script>
+
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
@@ -89,5 +89,6 @@
                 localStorage.setItem("theme", theme);
             });
         </script>
+        <script src="https://kit.fontawesome.com/dfc41e2a92.js" crossorigin="anonymous"></script>
     </body>
 </html>
