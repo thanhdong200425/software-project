@@ -1,12 +1,6 @@
-{% extends "layout.html" %}
-
-{% block stylesheets %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/booking.css') }}">
-{% endblock %}
-
-{% block title %} Booking {% endblock %}
-
-{% block content %}
+{% extends "layout.html" %} {% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='booking.css') }}" />
+{% endblock %} {% block title %} Booking {% endblock %} {% block content %}
 <!-- <div class="container">
     <h1>Booking</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -19,7 +13,6 @@
     {% endif %}
     {% endwith %}
 </div> -->
-
 
 <div class="calendar_container">
     <div class="calendar">
@@ -52,39 +45,37 @@
     </div>
 </div>
 
-<div id="bookingModal" class="modal" style="display: none;">
+<div id="bookingModal" class="modal" style="display: none">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h1>Booking</h1>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for category, message in messages %}
-                        <li class="{{ category }}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
         <form method="post" action="/booking">
             <label for="modal-customer-name">Customer name</label>
-            <input type="text" id="modal-customer-name" name="customer-name" placeholder="Enter customer name">
+            <input type="text" id="modal-customer-name" name="customer-name" placeholder="Enter customer name" />
 
             <label for="modal-room">Room</label>
             <select id="room_id" name="room_id" required>
                 <option value="" disabled selected>Select Room</option>
                 {% for room in rooms %}
-                    <option value="{{ room.room_id }}">{{ room.room_name }} ({{ room.type }})</option>
+                <option value="{{ room.room_id }}">{{ room.room_name }} ({{ room.type }})</option>
                 {% endfor %}
             </select>
 
             <label for="modal-check-in-date">Check-in date</label>
-            <input type="date" id="modal-check-in-date" name="check-in-date"required>
+            <input type="date" id="modal-check-in-date" name="check-in-date" required />
 
             <label for="modal-check-out-date">Check-out date</label>
-            <input type="date" id="modal-check-out-date" name="check-out-date"required>
+            <input type="date" id="modal-check-out-date" name="check-out-date" required />
 
             <label for="modal-total-people">Total people</label>
-            <input type="number" id="modal-total-people" name="total-people" placeholder="Enter total people"required>
+            <input type="number" id="modal-total-people" name="total-people" placeholder="Enter total people" required />
 
             <button type="reset" class="button cancel">Reset</button>
             <button name="booking_hotel" type="submit">Book Now</button>
@@ -92,6 +83,5 @@
     </div>
 </div>
 
-
-<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
+<script src="{{ url_for('static', filename='booking.js') }}"></script>
 {% endblock %}

@@ -1,45 +1,41 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='customer.css') }}" />
+{% endblock %} {% block content %}
+<div class="container">
+    <h1>Customer List</h1>
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/customer.css') }}">
-{% endblock %}
-
-{% block content %}
-    <div class="container">
-        <h1>Customer List</h1>
-        
-        {% if customers %}
-            <h3>Your Information</h3>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Date of Birth</th>
-                            <th>Credit Card</th>
-                            <th>Address</th>
-                            <th>Company ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for customer in customers %}
-                            <tr>
-                                <td>{{ customer['customer_id'] }}</td>
-                                <td>{{ customer['name'] }}</td>
-                                <td>{{ customer['email'] }}</td>
-                                <td>{{ customer['dob'] }}</td>
-                                <td>{{ customer['credit_card'] }}</td>
-                                <td>{{ customer['address'] }}</td>
-                                <td>{{ customer['company_id'] }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% else %}
-            <p>No customer data to display.</p>
-        {% endif %}
+    {% if customers %}
+    <h3>Your Information</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date of Birth</th>
+                    <th>Credit Card</th>
+                    <th>Address</th>
+                    <th>Company ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <td>{{ customer['customer_id'] }}</td>
+                    <td>{{ customer['name'] }}</td>
+                    <td>{{ customer['email'] }}</td>
+                    <td>{{ customer['dob'] }}</td>
+                    <td>{{ customer['credit_card'] }}</td>
+                    <td>{{ customer['address'] }}</td>
+                    <td>{{ customer['company_id'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    {% else %}
+    <p>No customer data to display.</p>
+    {% endif %}
+</div>
 {% endblock %}
