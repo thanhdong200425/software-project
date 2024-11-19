@@ -5,10 +5,7 @@ from typing import final
 
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from database.database_function import add_new_record, fetch_data_from_table
-from database.database_function import get_all_rooms
 from database.database_function import get_db_connection
-from helpers.validate import is_existing_data
-from functools import wraps
 import hashlib
 
 app = Flask(__name__)
@@ -17,7 +14,6 @@ app.secret_key = os.urandom(24)
 app.config["SESSION_TYPE"] = "redis"
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_USE_SIGNER"] = True
-app.config["SESSION_KEY_PREFIX"] = "your_app_session:"
 app.config["SESSION_REDIS"] = redis.Redis(
     host='redis-11725.c257.us-east-1-3.ec2.redns.redis-cloud.com',
     port=11725,
