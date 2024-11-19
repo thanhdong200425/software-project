@@ -1,14 +1,14 @@
 import os
 import redis
-from datetime import datetime
-from typing import final
-
-from flask import Flask, render_template, request, flash, redirect, url_for, session
-from database.database_function import add_new_record, fetch_data_from_table
-from database.database_function import get_db_connection
 import hashlib
+from flask import Flask, render_template, request, flash, redirect, url_for, session
+from database.database_function import add_new_record, fetch_data_from_table, get_db_connection
+from flask_session import Session
+from whitenoise import WhiteNoise
+
 
 app = Flask(__name__)
+app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/')
 app.secret_key = os.urandom(24)
 
 app.config["SESSION_TYPE"] = "redis"
@@ -19,6 +19,7 @@ app.config["SESSION_REDIS"] = redis.Redis(
     port=11725,
     password='fzcGxR1euqu8l4Tw8J0zYETbBWYGNilA')
 
+Session(app)
 
 @app.before_request
 def check_authentication():
