@@ -13,6 +13,18 @@
                 <div class="col-md-6">
                     <h2 class="text-center">User Login</h2>
 
+                    <!-- Flash message section -->
+                    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %} {% endwith %}
+                    <!-- End of flash message section -->
+
                     <form action="{{ url_for('login') }}" method="POST" id="login-form" enctype="multipart/form-data">
                         {% if message is defined and message %}
                         <div class="alert alert-warning" role="alert">{{ message }}</div>

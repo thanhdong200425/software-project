@@ -57,10 +57,8 @@ def login():
             return redirect('/')
         else:
             flash("Login information is wrong", "error")
-            # return redirect('/login')
+            return redirect('/login')
 
-
-    print(url_for('static', filename='login.css'))
     return render_template('login.html')
 
 
@@ -116,10 +114,6 @@ def index():
 
 @app.route('/booking', methods=['POST', 'GET'])
 def booking():
-    if 'user_id' not in session:
-        flash("Login for booking.", "error")
-        # return redirect('/login')
-
     conn = get_db_connection()
     customers = conn.execute("SELECT * FROM customer").fetchall()
     rooms = conn.execute("SELECT * FROM room WHERE status = 'available'").fetchall()
@@ -190,14 +184,8 @@ def customer():
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    if 'user_id' not in session:
-        flash("Please login.", "error")
-        # return redirect(url_for('login'))
-
     conn = get_db_connection()
-
     customer = conn.execute("SELECT * FROM customer WHERE customer_id = ?", (session['user_id'],)).fetchone()
-
     if request.method == "POST":
         name = request.form["name"]
         email = request.form["email"]
