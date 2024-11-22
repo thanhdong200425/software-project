@@ -7,8 +7,8 @@ from flask_session import Session
 from whitenoise import WhiteNoise
 
 
-app = Flask(__name__)
-app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/')
+app = Flask(__name__, static_folder='static')
+# app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/')
 app.secret_key = os.urandom(24)
 
 app.config["SESSION_TYPE"] = "redis"
@@ -23,7 +23,7 @@ Session(app)
 
 @app.before_request
 def check_authentication():
-    if request.endpoint not in ['login', 'register'] and not session.get("logged_in"):
+    if request.endpoint not in ['login', 'register', 'static'] and not session.get("logged_in"):
         return redirect(url_for("login"))
 
 
@@ -58,6 +58,8 @@ def login():
             flash("Login information is wrong", "error")
             # return redirect('/login')
 
+
+    print(url_for('static', filename='login.css'))
     return render_template('login.html')
 
 
