@@ -39,6 +39,7 @@ def login():
         user = conn.execute("SELECT * FROM user WHERE email = ? AND password = ?", (email, hashed_password)).fetchone()
 
         if user:
+            session.permanent = True
             session['logged_in'] = True
             session['user_id'] = user['userid']
             session['email'] = user['email']
