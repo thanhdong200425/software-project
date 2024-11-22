@@ -13,7 +13,7 @@
                 <div class="col-md-6">
                     <h2 class="text-center">User Login</h2>
 
-                    <form action="{{ url_for('login') }}" method="POST" id="login-form">
+                    <form action="{{ url_for('login') }}" method="POST" id="login-form" enctype="multipart/form-data">
                         {% if message is defined and message %}
                         <div class="alert alert-warning" role="alert">{{ message }}</div>
                         {% endif %}
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="d-flex justify-content-center align-items-center mt-3">
-                            <button onclick="submitLogin(event)" class="btn btn-primary btn-block button">
+                            <button type="button" onclick="submitLogin(event)" class="btn btn-primary btn-block button">
                                 <div class="spinner-border spinner-border-sm" id="spinner" role="status" style="display: none">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
@@ -41,20 +41,20 @@
                 </div>
             </div>
         </div>
+        <script>
+            function submitLogin(event) {
+                event.preventDefault();
+
+                showSpinner();
+
+                setTimeout(() => {
+                    document.getElementById("login-form").submit();
+                }, 2000);
+            }
+
+            function showSpinner() {
+                document.getElementById("spinner").style.display = "inline-block";
+            }
+        </script>
     </body>
-    <script>
-        function submitLogin(event) {
-            event.preventDefault();
-
-            showSpinner();
-
-            setTimeout(() => {
-                document.getElementById("login-form").submit();
-            }, 3000);
-        }
-
-        function showSpinner() {
-            document.getElementById("spinner").style.display = "inline-block";
-        }
-    </script>
 </html>

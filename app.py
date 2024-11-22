@@ -30,6 +30,7 @@ def check_authentication():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
+        print("Post")
         email = request.form['email']
         password = request.form['password']
 
