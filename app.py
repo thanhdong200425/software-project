@@ -9,7 +9,7 @@ from whitenoise import WhiteNoise
 
 app = Flask(__name__, static_folder='static')
 # app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/')
-app.secret_key = os.urandom(24)
+app.secret_key = "chungtoilanhungtraixinhgaidepcuavku"
 
 app.config["SESSION_TYPE"] = "redis"
 app.config["SESSION_PERMANENT"] = False
