@@ -5,14 +5,14 @@
     padding: 2rem;
     margin: 20px auto;
     border-radius: 10px;
-    background-color: #000;
+    background-color: #f0f8ff; /* Light blue background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Tiêu đề của trang đăng nhập */
 .container h2 {
     text-align: center;
-    color: #fff; /* Change text color to white */
+    color: #2c3e50; /* Darker blue for the heading */
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -35,7 +35,7 @@
 
 /* Thiết lập cho nhãn và ô nhập liệu */
 .form-group label {
-    color: #fff; /* Change label color to white */
+    color: #2c3e50; /* Darker blue for labels */
     font-weight: bold;
     font-size: 15px;
 }
@@ -43,21 +43,21 @@
 .form-control {
     padding: 12px;
     font-size: 15px;
-    color: #fff; /* Change input text color to white */
-    background-color: #333; /* Change input background color to dark */
+    color: #333333;
+    background-color: #e6f7ff; /* Light blue background for inputs */
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
 .form-control:focus {
-    border-color: #4a90e2;
+    border-color: #1abc9c; /* Green border on focus */
     box-shadow: none;
 }
 
 /* Nút đăng nhập */
 .btn-primary {
-    background-color: #4a90e2;
-    color: #fff;
+    background-color: #1abc9c; /* Green background for button */
+    color: #ffffff;
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
@@ -67,18 +67,18 @@
 }
 
 .btn-primary:hover {
-    background-color: #357abd;
+    background-color: #16a085; /* Darker green on hover */
 }
 
 /* Liên kết đăng ký */
 .mt-3 a {
-    color: #f19d43;
+    color: #1abc9c; /* Green color for links */
     font-weight: bold;
     text-decoration: none;
 }
 
 .mt-3 a:hover {
-    color: #d68131;
+    color: #16a085; /* Darker green on hover */
     text-decoration: underline;
 }
 
