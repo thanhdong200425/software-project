@@ -53,9 +53,13 @@
                         </div>
                         <div class="user-profile">
                             {% if session.get('customer_name') %}
-
-                            <a href="{{ url_for('profile') }}"><img alt="user" src="../static/avatar-2.png" /></a>
-
+                            <a href="#" id="profile-avatar"><img alt="user" src="../static/avatar-2.png" /></a>
+                            <div id="profile-modal" class="modal">
+                                <ul>
+                                    <li><a href="{{ url_for('profile') }}">Update Profile</a></li>
+                                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                                </ul>
+                            </div>
                             {% else %}
                             <li>
                                 <a href="{{ url_for('login') }}"><img alt="user" src="../static/avatar-2.png" /></a>
@@ -87,6 +91,19 @@
                     theme = "dark";
                 }
                 localStorage.setItem("theme", theme);
+            });
+
+            const avatar = document.getElementById("profile-avatar");
+            const modal = document.getElementById("profile-modal");
+
+            avatar.addEventListener("click", () => {
+                modal.classList.toggle("show");
+            });
+
+            window.addEventListener("click", (event) => {
+                if (event.target !== avatar && !avatar.contains(event.target) && !modal.contains(event.target)) {
+                    modal.classList.remove("show");
+                }
             });
         </script>
         <script src="https://kit.fontawesome.com/dfc41e2a92.js" crossorigin="anonymous"></script>
